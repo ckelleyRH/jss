@@ -209,8 +209,7 @@ public class IPAddressName implements GeneralNameInterface {
         try {
             int end = start + nt;
             for (int i = start; i < end; i++) {
-                Integer j = new Integer(Integer.valueOf(st.nextToken()));
-                address[i] = (byte) j.intValue();
+                address[i] = Byte.valueOf(st.nextToken());
             }
         } catch (NumberFormatException e) {
             throw new InvalidIPAddressException(s);
