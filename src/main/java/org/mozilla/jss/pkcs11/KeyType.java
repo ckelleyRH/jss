@@ -8,8 +8,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Hashtable;
 
 import org.mozilla.jss.crypto.Algorithm;
-import org.mozilla.jss.crypto.EncryptionAlgorithm;
 import org.mozilla.jss.crypto.CMACAlgorithm;
+import org.mozilla.jss.crypto.EncryptionAlgorithm;
 import org.mozilla.jss.crypto.HMACAlgorithm;
 import org.mozilla.jss.crypto.KeyWrapAlgorithm;
 import org.mozilla.jss.crypto.SignatureAlgorithm;
@@ -150,15 +150,6 @@ public final class KeyType {
                     },
                     "EC"
                 );
-
-    //////////////////////////////////////////////////////////////
-    /**
-     * @deprecated As of NSS 3.11, FORTEZZA is no longer supported.
-     * This is just a placeholder for backward compatibility.
-     */
-    @Deprecated
-    static public final KeyType
-    FORTEZZA = new KeyType(new Algorithm[0], "FORTEZZA");
 
     //////////////////////////////////////////////////////////////
     static public final KeyType

@@ -7,7 +7,6 @@ public enum SSLCipherAlgorithm {
     ssl_calg_des (3),
     ssl_calg_3des (4),
     ssl_calg_idea (5),
-    ssl_calg_fortezza (6),
     ssl_calg_aes (7),
     ssl_calg_camellia (8),
     ssl_calg_seed (9),

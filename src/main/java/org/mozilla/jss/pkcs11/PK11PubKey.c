@@ -242,9 +242,6 @@ Java_org_mozilla_jss_pkcs11_PK11PubKey_getKeyType
     case ecKey:
         keyTypeFieldName = EC_KEYTYPE_FIELD;
         break;
-    case fortezzaKey:
-        keyTypeFieldName = FORTEZZA_KEYTYPE_FIELD;
-        break;
     case dhKey:
         keyTypeFieldName = DH_KEYTYPE_FIELD;
         break;

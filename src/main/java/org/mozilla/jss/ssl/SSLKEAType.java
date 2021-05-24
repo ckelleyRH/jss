@@ -4,7 +4,6 @@ public enum SSLKEAType {
     ssl_kea_null (0),
     ssl_kea_rsa (1),
     ssl_kea_dh (2),
-    ssl_kea_fortezza (3),
     ssl_kea_ecdh (4),
     ssl_kea_ecdh_psk (5),
     ssl_kea_dh_psk (6),

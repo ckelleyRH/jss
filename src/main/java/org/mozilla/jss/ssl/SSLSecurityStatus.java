@@ -24,12 +24,6 @@ public class SSLSecurityStatus {
     final public int STATUS_OFF      = 0;
     final public int STATUS_ON_HIGH  = 1;
     final public int STATUS_ON_LOW   = 2;
-    /**
-     * @deprecated As of NSS 3.11, FORTEZZA is no longer supported.
-     * STATUS_FORTEZZA is a placeholder for backward compatibility.
-     */
-    @Deprecated
-    final public int STATUS_FORTEZZA = 3;
 
 	/**
 	 * This constructor is called from the native SSL code
@@ -45,17 +39,17 @@ public class SSLSecurityStatus {
 	this.sessionKeySize = sessionKeySize;
 	this.sessionSecretSize = sessionSecretSize;
         this.certificate = certificate;
-	
+
 	if(noCert.equals(issuer))
 	    this.issuer = null;
 	else
 	    this.issuer = issuer;
-	    
+
 	if(noCert.equals(subject))
 	   this.subject = null;
 	else
 	   this.subject = subject;
-	   
+
 	this.serialNumber = serialNumber;
     }
 
@@ -144,9 +138,6 @@ public class SSLSecurityStatus {
 	    break;
 	case STATUS_ON_LOW:
 	    statusString = "ON LOW";
-	    break;
-	case STATUS_FORTEZZA:
-	    statusString = "FORTEZZA";
 	    break;
 	default:
 	    statusString = "unknown";

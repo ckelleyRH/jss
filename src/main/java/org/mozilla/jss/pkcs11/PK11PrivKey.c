@@ -168,9 +168,6 @@ Java_org_mozilla_jss_pkcs11_PK11PrivKey_getKeyType
     case dsaKey:
         keyTypeFieldName = DSA_KEYTYPE_FIELD;
         break;
-    case fortezzaKey:
-        keyTypeFieldName = FORTEZZA_KEYTYPE_FIELD;
-        break;
     case dhKey:
         keyTypeFieldName = DH_KEYTYPE_FIELD;
         break;
@@ -419,7 +416,6 @@ JSS_PK11_getKeyType(JNIEnv *env, jobject keyTypeObj)
     char *fieldNames[] = {
         RSA_PRIVKEYTYPE_FIELD,
         DSA_PRIVKEYTYPE_FIELD,
-        FORTEZZA_KEYTYPE_FIELD,
         DH_KEYTYPE_FIELD,
         KEA_KEYTYPE_FIELD,
 	EC_KEYTYPE_FIELD };
@@ -427,7 +423,6 @@ JSS_PK11_getKeyType(JNIEnv *env, jobject keyTypeObj)
     KeyType keyTypes[] = {
         rsaKey,
         dsaKey,
-	fortezzaKey,
 	dhKey,
 	keaKey,
 	ecKey };

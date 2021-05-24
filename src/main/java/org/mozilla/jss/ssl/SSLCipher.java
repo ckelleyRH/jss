@@ -180,24 +180,6 @@ public enum SSLCipher {
     SSL3_DH_ANON_WITH_3DES_EDE_CBC_SHA           (0x001b, SSLVersion.SSL_3_0),
     TLS_DH_anon_WITH_3DES_EDE_CBC_SHA            (0x001b, SSLVersion.SSL_3_0),
 
-    /**
-     * @deprecated As of NSS 3.11, FORTEZZA is no longer supported.
-     */
-    @Deprecated
-    SSL3_FORTEZZA_DMS_WITH_NULL_SHA              (0x001c, SSLVersion.SSL_3_0),
-
-    /**
-     * @deprecated As of NSS 3.11, FORTEZZA is no longer supported.
-     */
-    @Deprecated
-    SSL3_FORTEZZA_DMS_WITH_FORTEZZA_CBC_SHA      (0x001d, SSLVersion.SSL_3_0),
-
-    /**
-     * @deprecated As of NSS 3.11, FORTEZZA is no longer supported.
-     */
-    @Deprecated
-    SSL3_FORTEZZA_DMS_WITH_RC4_128_SHA           (0x001e, SSLVersion.SSL_3_0),
-
     SSL_RSA_FIPS_WITH_3DES_EDE_CBC_SHA           (0xfeff, new SSLVersion[] { SSLVersion.SSL_3_0, SSLVersion.TLS_1_0 }),
     SSL_RSA_FIPS_WITH_DES_CBC_SHA                (0xfefe, new SSLVersion[] { SSLVersion.SSL_3_0, SSLVersion.TLS_1_0 }),
 
