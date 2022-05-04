@@ -288,11 +288,7 @@ public class X509CertInfo implements CertAttrSet, Serializable {
      */
     @Override
     public boolean equals(Object other) {
-        if (other instanceof X509CertInfo) {
-            return equals((X509CertInfo) other);
-        } else {
-            return false;
-        }
+        return other instanceof X509CertInfo x509CertInfo && equals(x509CertInfo);
     }
 
     /**
@@ -613,78 +609,34 @@ public class X509CertInfo implements CertAttrSet, Serializable {
                           "Attribute name not recognized: " + name);
         }
 
-        switch (attr) {
-        case (ATTR_VERSION):
-            if (attrName.getSuffix() == null) {
-                return (version);
-            } else {
-                return (version.get(attrName.getSuffix()));
+        return switch (attr) {
+            case ATTR_VERSION -> attrName.getSuffix() == null ? version : version.get(attrName.getSuffix());
+            case ATTR_SERIAL -> attrName.getSuffix() == null ? serialNum : serialNum.get(attrName.getSuffix());
+            case ATTR_ALGORITHM -> attrName.getSuffix() == null ? algId : algId.get(attrName.getSuffix());
+            case ATTR_ISSUER -> attrName.getSuffix() == null ? issuer : issuer.get(attrName.getSuffix());
+            case ATTR_VALIDITY -> attrName.getSuffix() == null ? interval : interval.get(attrName.getSuffix());
+            case ATTR_SUBJECT -> attrName.getSuffix() == null ? subject : subject.get(attrName.getSuffix());
+            case ATTR_KEY -> attrName.getSuffix() == null ? pubKey : pubKey.get(attrName.getSuffix());
+            case ATTR_ISSUER_ID -> {
+                if (attrName.getSuffix() == null) {
+                    yield issuerUniqueId;
+                }
+                yield issuerUniqueId == null ? null : issuerUniqueId.get(attrName.getSuffix());
             }
-        case (ATTR_SERIAL):
-            if (attrName.getSuffix() == null) {
-                return (serialNum);
-            } else {
-                return (serialNum.get(attrName.getSuffix()));
+            case ATTR_SUBJECT_ID -> {
+                if (attrName.getSuffix() == null) {
+                    yield (subjectUniqueId);
+                }
+                yield subjectUniqueId == null ? null : subjectUniqueId.get(attrName.getSuffix());
             }
-        case (ATTR_ALGORITHM):
-            if (attrName.getSuffix() == null) {
-                return (algId);
-            } else {
-                return (algId.get(attrName.getSuffix()));
+            case ATTR_EXTENSIONS -> {
+                if (attrName.getSuffix() == null) {
+                    yield (extensions);
+                }
+                yield extensions == null ? null : extensions.get(attrName.getSuffix());
             }
-        case (ATTR_ISSUER):
-            if (attrName.getSuffix() == null) {
-                return (issuer);
-            } else {
-                return (issuer.get(attrName.getSuffix()));
-            }
-        case (ATTR_VALIDITY):
-            if (attrName.getSuffix() == null) {
-                return (interval);
-            } else {
-                return (interval.get(attrName.getSuffix()));
-            }
-        case (ATTR_SUBJECT):
-            if (attrName.getSuffix() == null) {
-                return (subject);
-            } else {
-                return (subject.get(attrName.getSuffix()));
-            }
-        case (ATTR_KEY):
-            if (attrName.getSuffix() == null) {
-                return (pubKey);
-            } else {
-                return (pubKey.get(attrName.getSuffix()));
-            }
-        case (ATTR_ISSUER_ID):
-            if (attrName.getSuffix() == null) {
-                return (issuerUniqueId);
-            } else {
-                if (issuerUniqueId == null)
-                    return null;
-                else
-                    return (issuerUniqueId.get(attrName.getSuffix()));
-            }
-        case (ATTR_SUBJECT_ID):
-            if (attrName.getSuffix() == null) {
-                return (subjectUniqueId);
-            } else {
-                if (subjectUniqueId == null)
-                    return null;
-                else
-                    return (subjectUniqueId.get(attrName.getSuffix()));
-            }
-        case (ATTR_EXTENSIONS):
-            if (attrName.getSuffix() == null) {
-                return (extensions);
-            } else {
-                if (extensions == null)
-                    return null;
-                else
-                    return (extensions.get(attrName.getSuffix()));
-            }
-        }
-        return null;
+            default -> null;
+        };
     }
 
     /*
