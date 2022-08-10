@@ -45,6 +45,15 @@ jobs:
     - name: Build JSS with CMake
       run: ./build.sh --with-tests
 
+    - if: ${{ matrix.os }} = 'fedora-latest'
+      name: Upload JSS packages
+      uses: actions/upload-artifact@v2
+      with:
+        name: jss-build-${{ matrix.os }}
+        path: |
+          build/RPMS/
+          build/SRPMS/
+
     - name: Build JSS with Maven
       run: mvn package
 
@@ -82,3 +91,28 @@ jobs:
           diff /tmp/functions.txt /tmp/version.txt || true
           comm -23 --check-order /tmp/functions.txt /tmp/version.txt > /tmp/diff.txt
           test ! -s /tmp/diff.txt
+
+  rpminspect-test:
+    name: Run RPMInspect on RPMs
+    runs-on: ubuntu-latest
+    needs: build-test
+    container: ${{ matrix.os }}
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Download PKI packages
+        uses: actions/download-artifact@v2
+        with:
+          name: jss-build-${{ matrix.os }}
+          path: |
+            build/
+
+      - name: Install RPMInspect
+        run: |
+          dnf install -y dnf-plugins-core rpm-build findutils
+          dnf copr enable -y copr.fedorainfracloud.org/dcantrell/rpminspect
+          dnf install -y rpminspect rpminspect-data-fedora
+      - name: Run RPMInspect on SRPM and RPMs
+        run: |
+          tests/bin/rpminspect.sh
